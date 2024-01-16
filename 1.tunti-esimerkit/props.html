@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Props</title>
+</head>
+
+<body>
+    <!-- We will put our React component inside this div. -->
+    <div id="root"></div>
+
+    <!-- Load React & Babel -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <!-- React component code -->
+    <script type="text/babel">
+
+        //create component
+        function TripComponent(props) {
+            return (
+                //<>
+                <div>
+                    <h1>Matkani käyntijärjestyksessä</h1>
+                    <ul>1. kohde: {props.eka}</ul>
+                    <ul>2. kohde: {props.toka}</ul>
+                </div>
+                //</>
+            )
+        }
+
+        //create root element
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+
+        //render component
+        root.render(<TripComponent eka="Salo" toka="Tampere" />)
+
+    </script>
+</body>
+
+</html>

@@ -17,18 +17,12 @@
     <!-- Load our React component. -->
     <script type="text/babel">
 
-        //create component
         function HelloWorld(props) {
             return <div>Hello World {props.firstname}</div>;
         }
 
-        //create root element
         const root = ReactDOM.createRoot(document.getElementById("root"));
-
-        //render component
         root.render(<HelloWorld firstname="Mio" />)
-
-    
 
     </script>
   </body>

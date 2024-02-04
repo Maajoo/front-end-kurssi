@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Nasa Example</title>
+</head>
+
+<body>
+    <!-- We will put our React component inside this div. -->
+    <div id="root"></div>
+
+    <!-- Load React & Babel -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <!-- Load our React component. -->
+    <script type="text/babel">
+
+        function Nasa() {
+            const [data, setData] = React.useState({});
+            const [loading, setLoading] = React.useState(true);
+            React.useEffect(() => {
+                console.log("haetaan dataa.....");
+                fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error("Virhe hakuprosessissa", response.statusText);
+
+                        return response.json();
+                    })
+                    .then(responseData => setData(responseData))
+                    .catch(err => console.error(err))
+                    .finally(() => setLoading(false))
+            }, []);
+
+            return (
+                <div>
+                    <h1>Päivän Nasa-kuva tai video</h1>
+                    {loading ? (<p>Loading</p>)
+                        :
+                        (
+                            <div>
+                                <p>{data.title}</p>
+                                <p>{data.explanation}</p>
+                                {data.media_type === 'image' && <img src={data.url} alt={data.title}/>}
+                                {data.media_type === 'video' && <iframe width= "520" height="415" src={data.url}/>}
+                            </div>
+                        )
+                    }
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<Nasa />)
+    </script>
+</body>
+
+</html>

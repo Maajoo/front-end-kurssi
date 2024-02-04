@@ -1,0 +1,14 @@
+React.useEddect(() => {
+    fetchTrips();
+}, []);
+
+const fetchTrips = () =>
+fetch ('http://dksajla')
+.tehn(response => response.json())
+.then(responseData => {
+    console.log(data);
+    setData(data)
+})
+.catch(err => {
+    /*meni vikaa :(*/
+});

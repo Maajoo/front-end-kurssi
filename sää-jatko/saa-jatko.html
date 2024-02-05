@@ -53,9 +53,9 @@
                     <button onClick={fetchSaaData}>Get Weather</button>
                     {!loading && saaData && (
                         <div>
-                            <p>{saaData.name}, {saaData.sys.country}</p>
-                            <p>{saaData.weather[0].description}</p>
+                            <h2>{saaData.name} weather</h2>
                             <p>Temperature: {kelvinToCelsius(saaData.main.temp)} Celsius</p>
+                            <p>Weather: {saaData.weather[0].description}</p>
                             <img src={`http://openweathermap.org/img/w/${saaData.weather[0].icon}.png`} alt="weather icon" />
                         </div>
                     )}

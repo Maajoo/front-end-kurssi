@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Front End Development / React</title>
+</head>
+
+<body>
+    <!-- We will put our React component inside this div. -->
+    <div id="root"></div>
+
+    <!-- Load React & Babel -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <!-- Load our React component. -->
+    <script type="text/babel">
+        function Saa() {
+            const [saaData, setSaaData] = React.useState(null);
+            const [loading, setLoading] = React.useState(true);
+
+            React.useEffect(() => {
+                const fetchSaaData = async () => {
+                    try {
+                        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Helsinki,fi&APPID=efe0ac9863555cbfbc4c4fd0f3b33c87`);
+                        if (!response.ok) {
+                            throw new Error(`ERROR`);
+                        }
+
+                        const data = await response.json();
+                        setSaaData(data);
+                    } catch (error) {
+                        console.error(error);
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+
+                fetchSaaData();
+            }, []);
+
+            const kelvinToCelsius = kelvin => (kelvin - 273.15).toFixed(2);
+
+            return (
+                <div>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <div>
+                            <p>{saaData.name}, {saaData.sys.country}</p>
+                            <p>{saaData.weather[0].description}</p>
+                            <p>Temperature: {kelvinToCelsius(saaData.main.temp)} Celsius</p>
+                            <img src={`http://openweathermap.org/img/w/${saaData.weather[0].icon}.png`} alt="weather icon" />
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<Saa />);
+    </script>
+</body>
+
+</html>

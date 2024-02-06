@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Esimerkki MP</title>
+</head>
+<body>
+  <!-- Root container for react components -->
+  <div id='root'></div>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script type="text/babel">
+    const MapFilter = () => {
+
+      const [kasvit, setKasvit] = React.useState([{ id: 1, name: 'koivu', type: 'puu' },
+                                                { id: 2, name: 'pihlaja', type: 'puu' },
+                                                
+                                                { id: 3, name: 'ruusu', type: 'kukka' }]);
+
+      // filter()                                       
+      const puut = kasvit.filter(kasvi => kasvi.type === 'puu');
+      const nrot = [100, 23, 27]; //150
+      // reduce ()
+      const totalSum = nrot.reduce((prevNbr, currentNbr) => prevNbr + currentNbr, 0);
+
+      // map()
+      return (
+        <div>
+          <h2>Luontoa</h2>
+          <h3>Kaikki kasvit</h3>
+          <table>
+            <tbody>
+              <tr><th>name</th><th>type</th></tr>
+              {kasvit.map((kasvi) =>
+                <tr key={kasvi.id}>
+                  <td>{kasvi.name}</td>
+                  <td>{kasvi.type}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+
+          <br></br>
+          <h3>Vain puut</h3>
+          <table>
+            <tbody>
+              <tr><th>name</th><th>type</th></tr>
+              {puut.map((puu) =>
+                <tr key={puu.id}>
+                  <td>{puu.name}</td>
+                  <td>{puu.type}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          <br></br>
+          <h3>Number Array:</h3>
+          <ul>
+            {nrot.map((number, index) => (
+              <li key={index}>{number}</li>
+            ))}
+          </ul>
+          <p>Reduce summa: {totalSum}</p>
+        </div>
+      );
+    }
+    ReactDOM.render(<MapFilter />, document.getElementById('root'));
+  </script>
+</body>
+</html>

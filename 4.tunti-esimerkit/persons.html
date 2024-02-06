@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Map example</title>
+</head>
+
+<body>
+    <!-- We will put our React component inside this div. -->
+    <div id="root"></div>
+
+    <!-- Load React & Babel -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <!-- Load our React component. -->
+    <script type="text/babel">
+
+        function RestList() {
+
+            // state persons
+            const [persons, setPersons] = React.useState([]);
+
+            // function getPersons, REST request
+            const getPersons = () => {
+                fetch('https://reqres.in/api/users')
+                    .then(response => response.json())
+                    .then(responseData => setPersons(responseData.data)) //responseData=itse päätettävä nimi data=apissa olevan tiedon nimi
+                    .catch(error => console.error(error))
+            }
+
+
+            // useEffect()
+            React.useEffect(() => getPersons(), [])
+
+            //return
+            return (
+                <div>
+                    <h1>Persons</h1>
+                    <table>
+                        <thead>
+                            <tr><th>First name</th></tr>
+                        </thead>
+                        <tbody>
+                            {
+                                persons.map((person) => //person=itse päätettävä nimi
+                                    <tr key={person.id}>
+                                        <td>{person.first_name}</td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            );
+        };
+
+
+        // Create root element
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        // Initial render
+        root.render(<RestList />);
+    </script>
+</body>
+
+</html>

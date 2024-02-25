@@ -23,11 +23,10 @@ export default function TodoList() {
         <>
             <h2>Simple Todolist</h2>
 
-            
 
-                <fieldset>
-                    <legend>Add todo:</legend>
-                
+
+            <fieldset>
+                <legend>Add todo:</legend>
 
                 Description:
                 <input
@@ -46,10 +45,11 @@ export default function TodoList() {
                     onChange={handleChange} />
 
                 <button onClick={addTodo}>Add</button>
-                </fieldset>
-            
+            </fieldset>
 
-            <TodoTable todos={todos} />
+            <div className="todolistCentered">
+                <TodoTable todos={todos} />
+            </div>
         </>
     );
 }

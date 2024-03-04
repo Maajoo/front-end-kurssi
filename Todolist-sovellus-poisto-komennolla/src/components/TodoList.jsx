@@ -12,8 +12,8 @@ export default function TodoList() {
         setTodo({ ...todo, [event.target.name]: event.target.value });
     };
 
-    // Remember to call preventDefault() if using form
     const addTodo = () => {
+        console.log("insert new Todo to todos array");
         setTodos([...todos, todo]);
         setTodo({ desc: '', date: '' })
     };
@@ -42,7 +42,7 @@ export default function TodoList() {
 
                 Date:
                 <input
-                    type="text"
+                    type="date"
                     name="date"
                     placeholder="Anna päivä"
                     value={todo.date}

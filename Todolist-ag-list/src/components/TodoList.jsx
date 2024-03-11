@@ -1,65 +1,78 @@
-// Import useState from react
 import { useState } from "react";
-import TodoTable from "./TodoTable";
+import TodoGrid from "./TodoGrid";
 
 
 export default function TodoList() {
+
     // Declare states
-    const [todo, setTodo] = useState({ desc: '', date: '' });
+    const [todo, setTodo] = useState({ desc: '', date: '', priority: '' });
     const [todos, setTodos] = useState([]);
 
+    // HANDLE CHANGES
     const handleChange = (event) => {
         setTodo({ ...todo, [event.target.name]: event.target.value });
     };
 
-    const addTodo = () => {
-        console.log("insert new Todo to todos array");
-        setTodos([...todos, todo]);
-        setTodo({ desc: '', date: '', priority: '' })
-    };
+    // ADD
+    const addTodo = (event) => {
+        event.preventDefault();
+        if (todo.desc != '' && todo.date != '' && todo.priority != '') {
+            console.log("insert new Todo to todos array");
+            setTodos([...todos, todo]);
+        }
+        else {
+            console.log("Please fill in all fields.");
+            window.alert("Please fill in all fields.");
 
-    const deleteTodo = (index) => {
-        setTodos((prevTodos) => prevTodos.filter((todo, i) => i !== index));
+        }
     };
 
 
     return (
         <>
-            <h2>Simple Todolist</h2>
+            <table>
 
-
-
-            <fieldset>
-                <legend>Add todo:</legend>
-
-                Description:
-                <input
-                    type="text"
-                    name="desc"
-                    placeholder="Anna kuvaus"
-                    value={todo.desc}
-                    onChange={handleChange} />
-
-                Date:
-                <input
-                    type="date"
-                    name="date"
-                    value={todo.date}
-                    onChange={handleChange} />
-
-                Priority:
-                <input
-                    type="dropdown"
-                    name="priority"
-                    value={todo.priority}
-                    onChange={handleChange} />
-
-                <button onClick={addTodo}>Add</button>
-            </fieldset>
-
-            <div className="todolistCentered">
-                <TodoTable todos={todos} onDelete={deleteTodo} />
-            </div>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input
+                                type="text"
+                                placeholder="Description"
+                                name="desc"
+                                value={todo.desc}
+                                onChange={handleChange}
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="date"
+                                placeholder="Date"
+                                name="date"
+                                value={todo.date}
+                                onChange={handleChange}
+                            />
+                        </td>
+                        <td>
+                            <select
+                                name="priority"
+                                value={todo.priority}
+                                onChange={handleChange}>
+                                <option value="" disabled>Priority</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button onClick={addTodo}>Add</button>
+                        </td>
+                        <td>
+                            <button onClick={handleDelete}>Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <TodoGrid todos={todos} setTodos={setTodos} />
         </>
     );
 }

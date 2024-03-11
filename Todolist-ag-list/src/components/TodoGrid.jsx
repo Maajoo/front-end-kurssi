@@ -2,6 +2,7 @@ import { AgGridReact } from "ag-grid-react";
 import { useState, useRef } from "react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css"; // Material Design theme
+import TodoList from "./TodoList";
 
 export default function TodoGrid(props) {
 
@@ -22,17 +23,59 @@ export default function TodoGrid(props) {
 
     const handleDelete = () => {
         if (gridRef.current.getSelectedNodes().length > 0) {
-          props.setTodos(props.todos.filter((todo, index) => 
-            index != gridRef.current.getSelectedNodes()[0].id))
+            props.setTodos(props.todos.filter((todo, index) =>
+                index != gridRef.current.getSelectedNodes()[0].id))
         }
         else {
-          alert('Select a row first!');
+            alert('Select a row first!');
         }
-      };
+    };
 
     return (
         <>
+
+<table>
+
+<tbody>
+    <tr>
+        <td>
+            <input
+                type="text"
+                placeholder="Description"
+                name="desc"
+                value={props.todo.desc}
+                onChange={props.handleChange}
+            />
+        </td>
+        <td>
+            <input
+                type="date"
+                placeholder="Date"
+                name="date"
+                value={props.todo.date}
+                onChange={props.handleChange}
+            />
+        </td>
+        <td>
+            <select
+                name="priority"
+                value={props.todo.priority}
+                onChange={props.handleChange}>
+                <option value="" disabled>Priority</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </td>
+        <td>
+            <button onClick={props.addTodo}>Add</button>
+        </td>
+        <td>
         <button onClick={handleDelete}>Delete</button>
+        </td>
+    </tr>
+</tbody>
+</table>
             <div className="ag-theme-material" style={{ width: 700, height: 500 }}>
                 <AgGridReact
                     ref={gridRef}

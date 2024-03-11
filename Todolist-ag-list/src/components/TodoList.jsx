@@ -2,7 +2,7 @@ import { useState } from "react";
 import TodoGrid from "./TodoGrid";
 
 
-export default function TodoList() {
+export default function TodoList(props) {
 
     // Declare states
     const [todo, setTodo] = useState({ desc: '', date: '', priority: '' });
@@ -28,9 +28,10 @@ export default function TodoList() {
     };
 
 
+
     return (
         <>
-            <table>
+            {/* <table>
 
                 <tbody>
                     <tr>
@@ -66,13 +67,11 @@ export default function TodoList() {
                         <td>
                             <button onClick={addTodo}>Add</button>
                         </td>
-                        <td>
-                            <button onClick={handleDelete}>Delete</button>
-                        </td>
+
                     </tr>
                 </tbody>
-            </table>
-            <TodoGrid todos={todos} setTodos={setTodos} />
+            </table> */}
+            <TodoGrid todo={todo} todos={todos} setTodos={setTodos} handleChange={handleChange} addTodo={addTodo} />
         </>
     );
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import TodoGrid from "./TodoGrid";
 
 
-export default function TodoList(props) {
+export default function TodoList() {
 
     // Declare states
     const [todo, setTodo] = useState({ desc: '', date: '', priority: '' });
@@ -27,50 +27,8 @@ export default function TodoList(props) {
         }
     };
 
-
-
     return (
         <>
-            {/* <table>
-
-                <tbody>
-                    <tr>
-                        <td>
-                            <input
-                                type="text"
-                                placeholder="Description"
-                                name="desc"
-                                value={todo.desc}
-                                onChange={handleChange}
-                            />
-                        </td>
-                        <td>
-                            <input
-                                type="date"
-                                placeholder="Date"
-                                name="date"
-                                value={todo.date}
-                                onChange={handleChange}
-                            />
-                        </td>
-                        <td>
-                            <select
-                                name="priority"
-                                value={todo.priority}
-                                onChange={handleChange}>
-                                <option value="" disabled>Priority</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button onClick={addTodo}>Add</button>
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table> */}
             <TodoGrid todo={todo} todos={todos} setTodos={setTodos} handleChange={handleChange} addTodo={addTodo} />
         </>
     );

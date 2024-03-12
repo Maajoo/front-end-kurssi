@@ -2,7 +2,6 @@ import { AgGridReact } from "ag-grid-react";
 import { useState, useRef } from "react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css"; // Material Design theme
-import TodoList from "./TodoList";
 
 export default function TodoGrid(props) {
 
@@ -62,9 +61,9 @@ export default function TodoGrid(props) {
                 value={props.todo.priority}
                 onChange={props.handleChange}>
                 <option value="" disabled>Priority</option>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
                 <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
             </select>
         </td>
         <td>

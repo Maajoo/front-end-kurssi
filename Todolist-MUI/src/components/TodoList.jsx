@@ -18,6 +18,11 @@ export default function TodoList() {
         setTodo({ ...todo, date: date });
     }
 
+    // HANDLE PRIORITY
+    const handlePrio = (priority) => {
+        setTodo({ ...todo, priority: priority });
+    }
+
     // ADD
     const addTodo = (event) => {
         event.preventDefault();
@@ -40,6 +45,7 @@ export default function TodoList() {
                 setTodos={setTodos}
                 handleChange={handleChange}
                 handleDate={handleDate}
+                handlePrio={handlePrio}
                 addTodo={addTodo} />
         </>
     );
